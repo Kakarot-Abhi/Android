@@ -6,7 +6,6 @@ import com.imdb.csvparser.maker.ADBCmdMaker;
 import com.imdb.csvparser.model.Device;
 import com.imdb.csvparser.model.Devices;
 import com.imdb.csvparser.parser.CmdOutputParser;
-import com.imdb.csvparser.util.ADBInfoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,9 +23,6 @@ public class CmdOutput {
     private RunCommand runCommand;
 
     @Autowired
-    private ADBInfoUtils adbInfoUtils;
-
-    @Autowired
     private CmdOutputParser cmdOutputParser;
 
     @Autowired
@@ -37,8 +33,7 @@ public class CmdOutput {
         String deviceInfo = runCommand.getCommandOutput(allDeviceCmd);
         List<String> connectedDevices = cmdOutputParser.parseDeviceInfo(deviceInfo);
         List<String> connectedDeviceCommand = connectedDevices.stream().map(aDevice -> cmdMaker.getStrCmd("-s", aDevice, SHELL, GETPROP)).collect(Collectors.toList());
-        for (String device:
-             connectedDeviceCommand) {
+        for (String device : connectedDeviceCommand) {
             String output = runCommand.getCommandOutput(device);
             Device model = cmdOutputParser.parseAllProperties(output);
             Devices.add(model);
