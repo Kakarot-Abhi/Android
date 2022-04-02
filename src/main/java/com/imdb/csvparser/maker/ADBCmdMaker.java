@@ -1,6 +1,6 @@
 package com.imdb.csvparser.maker;
 
-import com.imdb.csvparser.util.ADBInfoUtils;
+import com.imdb.csvparser.config.ADBConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +11,11 @@ import java.util.StringJoiner;
 public class ADBCmdMaker {
 
     @Autowired
-    private ADBInfoUtils infoUtils;
+    private ADBConfig adbConfig;
 
     public String getStrCmd(String ...cmds){
         StringJoiner joiner = new StringJoiner(" ");
-        joiner.add(infoUtils.ADB());
+        joiner.add(adbConfig.ADBPATH());
         Arrays.asList(cmds).stream().forEach(joiner::add);
         return joiner.toString();
     }
