@@ -23,8 +23,7 @@ public class DemoApplication implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		adbConfig.showData();
-//		System.out.println(cmdOutput.getListOfDevices());
+		System.out.println(cmdOutput.getListOfDevices());
 	}
 }
 
